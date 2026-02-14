@@ -1,0 +1,6 @@
+@Zoomra.WebApi_HostAddress = http://localhost:5039
+
+GET {{Zoomra.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

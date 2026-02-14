@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoomra.Domain", "Zoomra.Domain\Zoomra.Domain.csproj", "{DBD3F6DA-FABB-43E6-A0AC-97FA80545E73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoomra.Application", "Zoomra.Application\Zoomra.Application.csproj", "{393E660E-7187-488D-A360-44953152EA92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoomra.Infrastructure", "Zoomra.Infrastructure\Zoomra.Infrastructure.csproj", "{D35CA777-934E-419C-B891-6B7FDCEB365E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoomra.WebApi", "Zoomra.WebApi\Zoomra.WebApi.csproj", "{6C806C62-661A-4BC4-9AA6-6D2D6C8A7365}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBD3F6DA-FABB-43E6-A0AC-97FA80545E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD3F6DA-FABB-43E6-A0AC-97FA80545E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD3F6DA-FABB-43E6-A0AC-97FA80545E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD3F6DA-FABB-43E6-A0AC-97FA80545E73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393E660E-7187-488D-A360-44953152EA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393E660E-7187-488D-A360-44953152EA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393E660E-7187-488D-A360-44953152EA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393E660E-7187-488D-A360-44953152EA92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35CA777-934E-419C-B891-6B7FDCEB365E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35CA777-934E-419C-B891-6B7FDCEB365E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35CA777-934E-419C-B891-6B7FDCEB365E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35CA777-934E-419C-B891-6B7FDCEB365E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C806C62-661A-4BC4-9AA6-6D2D6C8A7365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C806C62-661A-4BC4-9AA6-6D2D6C8A7365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C806C62-661A-4BC4-9AA6-6D2D6C8A7365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C806C62-661A-4BC4-9AA6-6D2D6C8A7365}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25283C10-3F8F-4901-8984-D91824555B73}
+	EndGlobalSection
+EndGlobal
