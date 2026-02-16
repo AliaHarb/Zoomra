@@ -1,5 +1,5 @@
-
 using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models; 
 using Zoomra.Domain.Entities;
 using Zoomra.Infrastructure.Extensions;
 
@@ -9,28 +9,51 @@ namespace Zoomra.WebApi
     {
         public static async Task Main(string[] args)
         {
-
-            
-
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
-            
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Zoomra API", Version = "v1" });
+
+               
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Please enter your JWT token. Example: {your_token}"
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
+
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
             var app = builder.Build();
 
-            //// Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            
+            // Configure the HTTP request pipeline.
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
@@ -38,7 +61,7 @@ namespace Zoomra.WebApi
 
             app.MapControllers();
 
-            // --- Data Seeding 
+            // --- Data Seeding ---
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -52,13 +75,11 @@ namespace Zoomra.WebApi
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine($"Error during seeding: {ex.Message}");
                 }
             }
-           
-            app.Run();
 
-            
+            app.Run();
         }
     }
 }
