@@ -40,13 +40,13 @@ namespace Zoomra.Application.Services
         public async Task<Result<bool>> RedeemRewardAsync(string userId, int rewardId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            // لازم نستخدم الأقواس () بعد كلمة Repository
-            var reward = await _unitOfWork.Repository<Reward>().GetByIdAsync(rewardId);
+            // التصحيح: بنستخدم _unitOfWork.Rewards مباشرة بدون Repository<T>()
+            var reward = await _unitOfWork.Rewards.GetByIdAsync(rewardId);
 
             if (reward == null || user == null) return Result<bool>.Failure("Data Error");
-            if (user.RewardPoints < reward.PointsRequired) return Result<bool>.Failure("Points not enough!");
+            if (user.RewardPoints < reward.PointsCost) return Result<bool>.Failure("Points not enough!");
 
-            user.RewardPoints -= reward.PointsRequired;
+            user.RewardPoints -= reward.PointsCost;
             var result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
@@ -58,36 +58,39 @@ namespace Zoomra.Application.Services
                     RedemptionDate = DateTime.UtcNow
                 };
 
-                // لازم نستخدم الأقواس () هنا كمان
-                await _unitOfWork.Repository<RewardRedemption>().AddAsync(redemption);
-                await _unitOfWork.CompleteAsync();
+                // التصحيح: نستخدم الـ Property المعرفة في الـ UnitOfWork
+                await _unitOfWork.RewardRedemptions.AddAsync(redemption);
+                await _unitOfWork.SaveChangesAsync(); // مش CompleteAsync
                 return Result<bool>.Success(true);
             }
             return Result<bool>.Failure("Redeem failed");
         }
 
-        public async Task<Result<IEnumerable<DonationCenterDto>>> GetNearbyCentersAsync()
-        {
-            var centers = await _unitOfWork.Repository<DonationCenter>().GetAllAsync();
-            return Result<IEnumerable<DonationCenterDto>>.Success(_mapper.Map<IEnumerable<DonationCenterDto>>(centers));
-        }
-
-        public async Task<Result<IEnumerable<EmergencyCallDto>>> GetActiveEmergenciesAsync()
-        {
-            var calls = await _unitOfWork.Repository<EmergencyCall>().GetAsync(x => x.IsActive);
-            return Result<IEnumerable<EmergencyCallDto>>.Success(_mapper.Map<IEnumerable<EmergencyCallDto>>(calls));
-        }
-
         public async Task<Result<IEnumerable<RewardDto>>> GetAvailableRewardsAsync()
         {
-            var rewards = await _unitOfWork.Repository<Reward>().GetAllAsync();
+            var rewards = await _unitOfWork.Rewards.GetAllAsync();
             return Result<IEnumerable<RewardDto>>.Success(_mapper.Map<IEnumerable<RewardDto>>(rewards));
         }
 
         public async Task<Result<IEnumerable<DonationHistoryDto>>> GetDonationHistoryAsync(string userId)
         {
-            var donations = await _unitOfWork.Repository<Donation>().GetAsync(x => x.DonorId == userId);
-            return Result<IEnumerable<DonationHistoryDto>>.Success(_mapper.Map<IEnumerable<DonationHistoryDto>>(donations));
+            // بنستخدم الـ Donations مباشرة
+            var donations = await _unitOfWork.Donations.GetAllAsync();
+            var userDonations = donations.Where(x => x.DonorId == userId);
+            return Result<IEnumerable<DonationHistoryDto>>.Success(_mapper.Map<IEnumerable<DonationHistoryDto>>(userDonations));
+        }
+
+        public async Task<Result<IEnumerable<DonationCenterDto>>> GetNearbyCentersAsync()
+        {
+            var centers = await _unitOfWork.Hospitals.GetAllAsync();
+            return Result<IEnumerable<DonationCenterDto>>.Success(_mapper.Map<IEnumerable<DonationCenterDto>>(centers));
+        }
+
+        public async Task<Result<IEnumerable<EmergencyCallDto>>> GetActiveEmergenciesAsync()
+        {
+            // تأكدي لو عندك جدول اسمه EmergencyCalls أو استخدمي الـ Requests
+            var calls = await _unitOfWork.EmergencyRequests.GetAllAsync();
+            return Result<IEnumerable<EmergencyCallDto>>.Success(_mapper.Map<IEnumerable<EmergencyCallDto>>(calls));
         }
 
         public async Task<Result<UserRewardsSummaryDto>> GetRewardsSummaryAsync(string userId)

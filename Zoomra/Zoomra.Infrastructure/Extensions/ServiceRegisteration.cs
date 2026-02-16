@@ -75,6 +75,7 @@ namespace Zoomra.Infrastructure.Extensions
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IEmergencyService, EmergencyService>();
+            services.AddScoped<IDonorService, DonorService>();
 
             // 5. إعدادات عامة
             services.Configure<JwtSettings>(configuration.GetSection("JWT"));

@@ -66,7 +66,7 @@ namespace Zoomra.Infrastructure.Data
                     .OnDelete(DeleteBehavior.Cascade);
 
 
-            modelBuilder.Entity<RewardRedemption>(entity =>
+             builder.Entity<RewardRedemption>(entity =>
             {
                 entity.HasKey(rr => rr.Id);
 
