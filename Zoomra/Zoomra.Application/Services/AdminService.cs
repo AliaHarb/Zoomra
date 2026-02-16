@@ -4,6 +4,7 @@ using Zoomra.Domain.Entities;
 using Zoomra.Domain.Interfaces;
 using Zoomra.Domain.DTOS;
 using Zoomra.Application.Helper;
+using System.Net.Http.Json;
 
 namespace Zoomra.Application.Services
 {
@@ -53,6 +54,25 @@ namespace Zoomra.Application.Services
             await _unitOfWork.Rewards.AddAsync(reward);
             var result = await _unitOfWork.SaveChangesAsync();
             return result > 0 ? Result<bool>.Success(true) : Result<bool>.Failure("Failed to add reward.");
+        }
+        ////ai model  خاص بالمستشفي لكن اداري 
+        public async Task<Result<object>> GetHospitalShortagePredictionsAsync(int hospitalId)
+        {
+            using var client = new HttpClient();
+            // اللينك بتاعهم + المسار اللي اتفقنا عليه
+            var url = $"https://nondivergently-unmopped-gabriele.ngrok-free.dev/api/v1/predict/shortage";
+
+            // الموديل مستني منك الـ hospital_id في الـ Body
+            var requestBody = new { hospital_id = $"H{hospitalId}" };
+
+            var response = await client.PostAsJsonAsync(url, requestBody);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<object>();
+                return Result<object>.Success(result);
+            }
+            return Result<object>.Failure("AI Service is currently unavailable.");
         }
     }
 }

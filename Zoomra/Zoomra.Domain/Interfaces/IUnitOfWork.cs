@@ -18,6 +18,7 @@ namespace Zoomra.Domain.Interfaces
         IBaseRepository<Event> Events { get; }
         IBaseRepository<Reward> Rewards { get; }
         IBaseRepository<RewardRedemption> RewardRedemptions { get; }
+        
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

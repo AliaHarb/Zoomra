@@ -18,12 +18,18 @@ namespace Zoomra.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly INotificationService _notificationService; // تم إضافة السيرفيس هنا
 
-        public InventoryService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public InventoryService(
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
+            UserManager<ApplicationUser> userManager,
+            INotificationService notificationService) // حقن السيرفيس في الـ Constructor
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _userManager = userManager; 
+            _userManager = userManager;
+            _notificationService = notificationService;
         }
 
         public async Task<Result<bool>> UpdateStockAsync(UpdateInventoryDto dto)
@@ -58,7 +64,6 @@ namespace Zoomra.Application.Services
 
             inventory.LastUpdatedDate = DateTime.UtcNow;
 
-            // Log transaction for AI predictive intelligence
             var transaction = new InventoryTransaction
             {
                 HospitalId = dto.HospitalId,
@@ -83,9 +88,10 @@ namespace Zoomra.Application.Services
             var dtos = _mapper.Map<IEnumerable<BloodStockDto>>(stocks);
             return Result<IEnumerable<BloodStockDto>>.Success(dtos);
         }
+
         public async Task<Result<bool>> ConfirmDonationAsync(ConfirmDonationDto dto)
         {
-            // 1. تحديث المخزون (بنزود كيس الدم اللي اتبرع بيه)
+            // 1. Update Inventory
             var stockUpdateResult = await UpdateStockAsync(new UpdateInventoryDto
             {
                 HospitalId = dto.HospitalId,
@@ -96,25 +102,32 @@ namespace Zoomra.Application.Services
 
             if (!stockUpdateResult.IsSuccess) return Result<bool>.Failure("Failed to update inventory.");
 
-            // 2. إضافة النقاط للمتبرع وتحديث بياناته عن طريق UserManager
-            // بنبحث بالـ UserName (اللي هو غالباً الرقم القومي) أو الـ ID
+            // 2. Update Donor Points and Status
             var donor = await _userManager.FindByNameAsync(dto.DonorId)
                         ?? await _userManager.FindByIdAsync(dto.DonorId);
 
             if (donor != null)
             {
-                donor.RewardPoints += 50; // مكافأة التبرع 
+                donor.RewardPoints += 50;
                 donor.LastDonationDate = DateTime.UtcNow;
 
-                // تحديث بيانات اليوزر في الـ Identity
-                await _userManager.UpdateAsync(donor);
+                var updateResult = await _userManager.UpdateAsync(donor);
+
+                if (updateResult.Succeeded)
+                {
+                    // الحتة اللي كنتِ عاوزاها: إرسال إشعار شكر وتأكيد النقاط
+                    await _notificationService.CreateEmergencyNotificationAsync(
+                        dto.BloodType,
+                        $"Thank you! 50 points added to your account for donating {dto.BloodType}."
+                    );
+                }
             }
             else
             {
                 return Result<bool>.Failure("Donor not found in the system.");
             }
 
-            // 3. قفل طلب الاستغاثة لو الموظف اختار "اكتفاء العجز"
+            // 3. Close Emergency Call if requested
             if (dto.EmergencyCallId.HasValue && dto.ShouldCloseCall)
             {
                 var emergencyCall = await _unitOfWork.EmergencyRequests.GetByIdAsync(dto.EmergencyCallId.Value);
@@ -124,8 +137,7 @@ namespace Zoomra.Application.Services
                 }
             }
 
-            // حفظ التغييرات الخاصة بـ EmergencyCall و Inventory
-            var result = await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
             return Result<bool>.Success(true);
         }
     }

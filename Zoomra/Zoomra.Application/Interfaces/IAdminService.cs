@@ -12,5 +12,7 @@ namespace Zoomra.Domain.Interfaces
         Task<Result<bool>> DeleteHospitalAsync(int hospitalId);
         Task<Result<IEnumerable<AdminHospitalDto>>> GetAllHospitalsAsync();
         Task<Result<bool>> AddRewardAsync(AddRewardDto dto);
+        //ai model  خاص بالمستشفي لكن اداري 
+        Task<Result<object>> GetHospitalShortagePredictionsAsync(int hospitalId);
     }
 }

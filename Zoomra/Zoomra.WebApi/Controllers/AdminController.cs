@@ -44,7 +44,7 @@ namespace Zoomra.WebApi.Controllers
             var result = await _adminService.AddRewardAsync(dto);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
-
+       
 
     }
 }
