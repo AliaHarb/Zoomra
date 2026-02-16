@@ -119,7 +119,7 @@ We do not sell blood or medical data.
 ## 👥 Team
 
 - Backend Developer Alia Harb
-- Flutter Developer Abdulrahman Assay
+- Flutter Developer Abdulrahman Ayman
 - AI Engineer Omar Magdy
 - Business Islam Mohammed
 - UI/UX Designer Eman salim
