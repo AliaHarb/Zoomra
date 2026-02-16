@@ -1,46 +1,138 @@
-Zomra - AI-Powered Blood Inventory Management
-Zomra is an innovative AI-driven platform designed to optimize blood bank inventories for SMEs and hospitals. It bridges the gap between healthcare providers and donors through a gamified, real-time response system.
+# 🩸 BloodFlow AI
+### Predictive Blood Supply & Emergency Matching System
 
- Key Features Implemented
- Admin & System Management
-Hospital Onboarding: Full CRUD operations to manage hospital profiles, locations, and administration.
+BloodFlow AI is a HealthTech platform designed to reduce blood shortages by combining
+AI-powered demand prediction with real-time donor matching.
 
-Gamification Setup: Ability to add and manage rewards to incentivize donors.
+Our mission is to transform blood management from a reactive system into a predictive, intelligent infrastructure.
 
-🏥 Hospital & Inventory Intelligence
-Smart Stock Management: Real-time tracking and manual updates (Add/Subtract) for various blood types.
+---
 
-Predictive Transaction Logs: Every movement is logged to feed the AI predictive engine for future demand forecasting.
+## 🚀 Problem
 
-Emergency Dispatch: Hospitals can raise urgent "Emergency Calls" with specific blood types and urgency levels.
+Blood shortages are a recurring crisis in many hospitals due to:
 
-Donation Confirmation: A unique workflow where hospital staff verify a donor's ID to automatically update stock, award points, and close active emergency requests.
+- Lack of predictive inventory systems
+- Manual emergency coordination
+- Delayed donor matching
+- Poor data-driven decision making
 
- Donor (User) Journey
-Personalized Dashboard: Displays real-time points, total successful donations, and blood type.
+This leads to:
+- Delayed surgeries
+- Emergency risks
+- Financial and operational losses
 
-Smart Donation Timer: Automatically calculates and displays the date for the next eligible donation (Last Donation + 3 Months).
+---
 
-Live Emergency Feed: Shows active blood requests from nearby hospitals.
+## 💡 Solution
 
-Rewards Exchange: A store where donors can browse and redeem their earned points for rewards.
+BloodFlow AI provides:
 
-Technical Architecture
-The project follows Clean Architecture principles to ensure scalability and maintainability:
+### 🏥 For Hospitals
+- Live blood inventory monitoring
+- Predictive shortage alerts (AI-based)
+- Emergency case management
+- Smart donor matching
+- Analytics dashboard & reports
 
-Domain: Contains Entities (Hospital, BloodInventory, Reward), Interfaces (IUnitOfWork, IBaseRepository), and DTOs.
+### 👤 For Donors
+- Digital blood card
+- Eligibility tracking
+- Smart emergency notifications
+- Nearest donation point
+- Gamified engagement system
 
-Application: Core logic including Services (Admin, Inventory, Donor), AutoMapper Profiles, and Result Helpers.
+---
 
-Infrastructure: Database Context (ApplicationDbContext), Repository implementations, and Identity/JWT configuration.
+## 🧠 AI Components
 
-Web API: Controllers handling HTTP requests and providing a fully documented Swagger UI.
+1. **Predictive Demand Engine**
+   - Forecasts blood shortages using historical usage patterns
 
- Tech Stack
-Framework: .NET 8.0 / ASP.NET Core Web API.
+2. **Dynamic Matching Algorithm**
+   - Matches eligible donors based on:
+     - Blood type
+     - Location
+     - Last donation date
+     - Health status
 
-Database: MS SQL Server with Entity Framework Core.
+3. **Smart Screening (NLP-based)**
+   - Determines donor eligibility before hospital confirmation
 
-Security: ASP.NET Core Identity with JWT Bearer Authentication.
+---
 
-Tools: AutoMapper, LINQ, Repository Pattern, and Unit of Work.
+## 🏗 System Architecture
+
+Mobile App (Flutter)  
+⬇  
+Backend API  
+⬇  
+Secure Database  
+⬇  
+AI Engine  
+⬇  
+Hospital Dashboard (Web)
+
+All sensitive medical data is encrypted and role-based access is applied.
+
+---
+
+## 🔐 Data Privacy & Security
+
+- Encrypted data storage (at rest & in transit)
+- Role-based access control
+- Consent-based user data collection
+- Anonymized analytics
+
+We do not sell blood or medical data.
+
+---
+
+## 💰 Business Model
+
+- B2B SaaS subscription for private hospitals
+- Corporate CSR partnerships
+- AI analytics reports
+- White-label licensing
+
+---
+
+## 🛠 Tech Stack
+
+- Mobile: Flutter
+- Backend: (Node.js / .NET / Django — update as needed)
+- Database: MySQL / PostgreSQL
+- AI: Python (Scikit-learn / TensorFlow — update as needed)
+- Hosting: Cloud-based infrastructure
+
+---
+
+## 📊 Future Expansion
+
+- Government integration
+- National blood supply grid
+- Cross-hospital data intelligence
+- Advanced AI optimization
+
+---
+
+## 👥 Team
+
+- Backend Developer Alia Harb
+- Flutter Developer Abdulrahman Assay
+- AI Engineer Omar Magdy
+- Business Islam Mohammed
+- UI/UX Designer Eman salim
+
+---
+
+## 📌 Status
+
+MVP – Built for competition demo  
+Pilot-ready for private hospitals
+
+---
+
+## 📄 License
+
+This project is built for educational and competition purposes.
