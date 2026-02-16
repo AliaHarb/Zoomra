@@ -1,4 +1,4 @@
-# 🩸 BloodFlow AI
+# 🩸 Zomra
 ### Predictive Blood Supply & Emergency Matching System
 
 BloodFlow AI is a HealthTech platform designed to reduce blood shortages by combining
