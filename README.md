@@ -8,7 +8,7 @@ Our mission is to transform blood management from a reactive system into a predi
 
 ---
 
-## 🚀 Problem
+##  Problem
 
 Blood shortages are a recurring crisis in many hospitals due to:
 
@@ -44,7 +44,7 @@ BloodFlow AI provides:
 
 ---
 
-## 🧠 AI Components
+##  AI Components
 
 1. **Predictive Demand Engine**
    - Forecasts blood shortages using historical usage patterns
@@ -100,14 +100,14 @@ We do not sell blood or medical data.
 ## 🛠 Tech Stack
 
 - Mobile: Flutter
-- Backend: (Node.js / .NET / Django — update as needed)
-- Database: MySQL / PostgreSQL
-- AI: Python (Scikit-learn / TensorFlow — update as needed)
+- Backend: ( .NET )
+- Database: SQL Server
+- AI: Python (Scikit-learn / TensorFlow )
 - Hosting: Cloud-based infrastructure
 
 ---
 
-## 📊 Future Expansion
+##  Future Expansion
 
 - Government integration
 - National blood supply grid
@@ -126,13 +126,9 @@ We do not sell blood or medical data.
 
 ---
 
-## 📌 Status
+##  Status
 
 MVP – Built for competition demo  
 Pilot-ready for private hospitals
 
 ---
-
-## 📄 License
-
-This project is built for educational and competition purposes.
