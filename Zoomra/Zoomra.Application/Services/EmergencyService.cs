@@ -24,7 +24,7 @@ namespace Zoomra.Application.Services
             // 1. Map DTO to Entity
             var emergencyRequest = _mapper.Map<EmergencyRequest>(dto);
 
-            // التعديل هنا: استخدمنا الأسماء اللي موجودة في الـ Entity بتاعتك
+           
             emergencyRequest.RequestTime = DateTime.UtcNow;
             emergencyRequest.Status = "Open";
 

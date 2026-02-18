@@ -59,7 +59,7 @@ namespace Zoomra.Application.Services
         public async Task<Result<object>> GetHospitalShortagePredictionsAsync(int hospitalId)
         {
             using var client = new HttpClient();
-            // اللينك بتاعهم + المسار اللي اتفقنا عليه
+            // اللينك بتاعهم + المسار 
             var url = $"https://nondivergently-unmopped-gabriele.ngrok-free.dev/api/v1/predict/shortage";
 
             // الموديل مستني منك الـ hospital_id في الـ Body

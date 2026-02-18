@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models; 
 using Zoomra.Domain.Entities;
+using Zoomra.Infrastructure.Data;
 using Zoomra.Infrastructure.Extensions;
 
 namespace Zoomra.WebApi
@@ -14,6 +16,9 @@ namespace Zoomra.WebApi
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
             builder.Services.AddSwaggerGen(options =>
             {

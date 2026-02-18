@@ -14,7 +14,7 @@ namespace Zoomra.Application.Services
         public ExternalAIService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            // سحب اللينك من appsettings.json مع وجود لينك احتياطي (Fallback)
+            // سحب اللينك من appsettings.json 
             _baseUrl = configuration["AISettings:BaseUrl"] ?? "https://blood-bank-api-abc123xyz-ew.a.run.app/api/v1/";
         }
 

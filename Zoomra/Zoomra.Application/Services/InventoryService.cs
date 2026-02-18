@@ -115,7 +115,7 @@ namespace Zoomra.Application.Services
 
                 if (updateResult.Succeeded)
                 {
-                    // الحتة اللي كنتِ عاوزاها: إرسال إشعار شكر وتأكيد النقاط
+                    
                     await _notificationService.CreateEmergencyNotificationAsync(
                         dto.BloodType,
                         $"Thank you! 50 points added to your account for donating {dto.BloodType}."
